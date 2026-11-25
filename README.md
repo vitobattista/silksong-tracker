@@ -10,6 +10,16 @@ Checklist interattiva di **Hollow Knight: Silksong**: spunta abilità, Silk Skil
 - Icone, sprite e ornamenti caricati direttamente da hollowknight.wiki (nessuna immagine copiata nel repository). Se un'immagine non si carica compare un rombo al suo posto.
 - Nessun build, nessuna dipendenza: HTML + JS statico.
 
+## Salvataggio su GitHub (sincronizzazione)
+
+Il pulsante **Accedi** (su telefono dentro **Opzioni**) collega l'app a un **Gist privato** del tuo account GitHub, dove vengono salvati tutti e 4 gli slot.
+
+1. Crea un token classico con il solo permesso `gist`: https://github.com/settings/tokens/new?scopes=gist&description=Silksong%20Tracker (Expiration: *No expiration* o una scadenza lunga).
+2. Incollalo nella finestra di accesso. Al primo accesso l'app crea il Gist `silksong-tracker.json`; sugli altri dispositivi lo ritrova da sola.
+3. Ogni modifica si salva un istante dopo; all'apertura e al ritorno sull'app i progressi si aggiornano. Per ogni slot vince la versione più recente; se al primo accesso ci sono progressi sia online sia sul dispositivo, puoi scegliere quali tenere o unirli.
+
+Il token resta solo nel browser (localStorage) e può accedere soltanto ai tuoi Gist. Per revocarlo: GitHub → Settings → Developer settings → Personal access tokens. Senza rete l'app continua a salvare in locale e sincronizza appena torna la connessione.
+
 ## Pubblicare su GitHub Pages
 
 1. Crea un repository (es. `silksong-tracker`) e carica `index.html`, `data.js`, `images.js`, `README.md`, `.nojekyll`.

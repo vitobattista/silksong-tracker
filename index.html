@@ -167,6 +167,24 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
 .toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
 .toast button{font-family:Cinzel,serif;font-size:13px;color:var(--ink);text-decoration:underline;min-height:36px}
 
+.sync{display:inline-flex;align-items:center;gap:8px}
+.sdot{width:8px;height:8px;border-radius:50%;background:var(--dim);flex:none}
+.sync[data-s=ok] .sdot{background:#9fd49a;box-shadow:0 0 6px rgb(159 212 154/.8)}
+.sync[data-s=busy] .sdot{background:var(--ember);animation:pulse 1s ease-in-out infinite}
+.sync[data-s=err] .sdot,.sync[data-s=offline] .sdot{background:var(--red)}
+@keyframes pulse{50%{opacity:.3}}
+#login{text-align:left;width:min(520px,94vw)}
+#login h2{text-align:center}
+#login ol{padding-left:22px;margin:10px 0 14px;color:var(--mute)}
+#login li{margin:6px 0}
+#login b{color:var(--ink);font-weight:700}
+#login .tok{width:100%;min-height:48px;padding:0 12px;background:var(--bg);border:1px solid var(--line2);border-radius:4px;font:15px ui-monospace,monospace;color:var(--ink)}
+#login .err{color:#e98a8f;min-height:1.4em;margin:8px 0 0}
+#login .note{font-size:15px;color:var(--dim)}
+#login .row{justify-content:flex-end}
+#login .acc{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:12px 0;font-size:17px}
+#login .acc dt{color:var(--dim)}#login .acc dd{margin:0}
+#login a{color:var(--ink)}
 .mopt,.bnav,.pick,.scrim,.handle{display:none}
 .more{display:contents}
 .mopt i{font-style:normal;font-size:11px;margin-left:6px;color:var(--red)}
@@ -212,6 +230,7 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
  .more .tog{border:1px solid var(--line);border-radius:4px;padding:0 10px;min-height:46px;font-size:15px}
  .menu{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0}
  .menu .btn{min-height:46px}
+ .menu .sync{grid-column:1/-1;justify-content:center}
  /* pannello */
  .wrap{padding:4px 12px 24px}
  .phead{margin:12px 0 6px}
@@ -300,6 +319,7 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
     <label class="tog"><input type="checkbox" id="hide"> Nascondi ottenuti</label>
     <label class="tog"><input type="checkbox" id="steel"> Steel Soul</label>
     <div class="menu">
+      <button class="btn sync" id="bSync" aria-haspopup="dialog"><span class="sdot"></span><span id="sLbl">Accedi</span></button>
       <select id="slot" class="btn" aria-label="Slot di salvataggio"><option value="1">Slot I</option><option value="2">Slot II</option><option value="3">Slot III</option><option value="4">Slot IV</option></select>
       <button class="btn" id="bExport">Esporta</button>
       <button class="btn" id="bImport">Importa</button>
@@ -334,6 +354,11 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
   <textarea id="dArea" spellcheck="false"></textarea>
   <input type="file" id="dFile" accept=".json,application/json" hidden>
   <div class="row" id="dRow"></div>
+</dialog>
+<dialog id="login" aria-labelledby="lTitle">
+  <img class="orn" data-ui="htop" alt="" style="width:240px">
+  <h2 id="lTitle">Salvataggio su GitHub</h2>
+  <div id="lBody"></div>
 </dialog>
 <div class="toast" id="toast" role="status"><span id="tMsg"></span><button id="tUndo">Annulla</button></div>
 
@@ -380,7 +405,7 @@ const DEF=()=>({act:'',hide:false,steel:false,view:{}});
 const KEY=s=>'silksong-tracker:v1:slot'+s;
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 function load(){let d={};try{d=JSON.parse(store.get(KEY(slot))||'{}')}catch(e){}done=new Set(d.done||[]);opts={...DEF(),...(d.opts||{})};opts.view=opts.view||{}}
-function save(){store.set(KEY(slot),JSON.stringify({v:1,done:[...done],opts}));store.set('silksong-tracker:slot',slot)}
+function save(){store.set(KEY(slot),JSON.stringify({v:1,t:Date.now(),done:[...done],opts}));store.set('silksong-tracker:slot',slot);if(typeof queueSync==='function')queueSync()}
 const viewOf=c=>opts.view[c]||(LISTDEF.has(c)?'list':'grid');
 
 /* --- conteggi --- */
@@ -440,7 +465,7 @@ const MOB=matchMedia('(max-width:700px)'),SHEET=matchMedia('(max-width:1000px)')
 function renderNav(){const c=CATS.find(x=>x.id===cur),u=units(c.items);
   $('#bCur').innerHTML=query?`<span class="ic noimg"></span><b>Ricerca</b><small>${esc(query)}</small>`:`${icon(c.img,96)}<b>${esc(c.name)}</b><small>${u.ok} / ${u.tot}<i><u style="width:${u.tot?u.ok/u.tot*100:0}%"></u></i></small>`;
   $('#pgrid').innerHTML=$('#tabs').innerHTML;
-  const n=(opts.act?1:0)+(opts.hide?1:0)+(opts.steel?1:0);$('#nf').textContent=n?'◆'+n:''}
+  const n=(opts.act?1:0)+(opts.hide?1:0)+(opts.steel?1:0),bad=SY.token&&(SY.state==='err'||SY.state==='offline');$('#nf').textContent=(n?'◆'+n:'')+(bad?' !':'')}
 function sheet(which){['pick','det'].forEach(k=>$('#'+k).classList.toggle('open',k===which));$('#scrim').classList.toggle('on',!!which);
   $('#bCur').setAttribute('aria-expanded',which==='pick')}
 $('#bCur').onclick=()=>sheet($('#pick').classList.contains('open')?null:'pick');
@@ -479,7 +504,7 @@ $('#q').addEventListener('input',e=>{query=e.target.value.trim();sel=null;render
 $('#acts').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;opts.act=b.dataset.a;save();render()});
 $('#hide').onchange=e=>{opts.hide=e.target.checked;save();render()};
 $('#steel').onchange=e=>{opts.steel=e.target.checked;save();render()};
-$('#slot').onchange=e=>{slot=e.target.value;load();save();sel=null;render();toast('Slot '+['','I','II','III','IV'][slot]+' caricato')};
+$('#slot').onchange=e=>{slot=e.target.value;load();store.set('silksong-tracker:slot',slot);sel=null;render();toast('Slot '+['','I','II','III','IV'][slot]+' caricato')};
 addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(CATS.some(c=>c.id===h)&&h!==cur)go(h)});
 
 /* --- dialoghi --- */
@@ -500,10 +525,81 @@ $('#dFile').onchange=async e=>{const f=e.target.files[0];if(f)doImport(await f.t
 $('#bReset').onclick=()=>openDlg('Azzerare lo slot?','Tutte le voci di questo slot torneranno mancanti. Potrai annullare subito dopo.',null,[
   ['Annulla',()=>dlg.close()],['Azzera',()=>{snapshot('Slot azzerato');done=new Set();save();render();dlg.close()},true]]);
 
+/* --- sincronizzazione su Gist privato di GitHub --- */
+const GH='https://api.github.com',GFILE='silksong-tracker.json',SK='silksong-tracker:gh-';
+const SY={token:store.get(SK+'token'),gist:store.get(SK+'gist'),user:store.get(SK+'user'),state:'off',msg:'',last:0,timer:null,running:false,again:false};
+const TOKEN_URL='https://github.com/settings/tokens/new?scopes=gist&description=Silksong%20Tracker';
+async function gh(path,o={}){const r=await fetch(path.startsWith('http')?path:GH+path,{...o,cache:'no-store',headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+SY.token,'X-GitHub-Api-Version':'2022-11-28',...(o.body?{'Content-Type':'application/json'}:{})}});
+  if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;throw e}return r.status===204?null:r.json()}
+const SLOTS=['1','2','3','4'];
+function localAll(){const o={};SLOTS.forEach(k=>{try{const d=JSON.parse(store.get(KEY(k))||'null');if(d)o[k]=d}catch(e){}});return o}
+const filled=all=>Object.values(all||{}).some(d=>d&&d.done&&d.done.length);
+async function readRemote(){const g=await gh('/gists/'+SY.gist);const f=g.files&&g.files[GFILE];if(!f)return{};
+  let t=f.content;if(f.truncated)t=await fetch(f.raw_url,{cache:'no-store'}).then(r=>r.text());try{return JSON.parse(t).slots||{}}catch(e){return{}}}
+const payload=()=>JSON.stringify({app:'silksong-tracker',v:2,updated:new Date().toISOString(),slots:localAll()});
+async function writeRemote(){await gh('/gists/'+SY.gist,{method:'PATCH',body:JSON.stringify({files:{[GFILE]:{content:payload()}}})})}
+function applyRemote(slots,force){let cur=false;Object.entries(slots||{}).forEach(([k,d])=>{if(!SLOTS.includes(k)||!d||!Array.isArray(d.done))return;
+  let l=null;try{l=JSON.parse(store.get(KEY(k))||'null')}catch(e){}
+  if(force||!l||(d.t||0)>(l.t||0)){store.set(KEY(k),JSON.stringify(d));if(k===slot)cur=true}});if(cur){load();render()}}
+function setSync(st,msg=''){SY.state=st;SY.msg=msg;const b=$('#bSync');b.dataset.s=st;
+  $('#sLbl').textContent=!SY.token?'Accedi':st==='busy'?'Salvataggio…':st==='err'?'Errore di salvataggio':st==='offline'?'In attesa di rete':(SY.user||'GitHub');
+  b.title=msg||({ok:'Progressi salvati su GitHub',busy:'Sincronizzazione in corso',off:'Accedi per salvare su GitHub'}[st]||'');
+  renderNav();if(login.open&&!SY.busyLogin&&!$('#mU'))renderLogin()}
+function syncFail(e){if(e.status===401)setSync('err','Il token non è più valido: accedi di nuovo.');
+  else if(e.status===404){SY.gist=null;store.set(SK+'gist','');setSync('err','Il Gist dei salvataggi non esiste più: accedi di nuovo per ricrearlo.')}
+  else if(e.status===403)setSync('err','GitHub ha rifiutato la richiesta (limite raggiunto o token senza permesso Gist).');
+  else setSync('offline',framed?'Nell\'anteprima di Claude la sincronizzazione non è disponibile: usa il sito GitHub Pages.':'Nessuna connessione: i progressi restano su questo dispositivo e verranno inviati appena possibile.')}
+async function syncNow(){if(!SY.token||!SY.gist)return;if(SY.running){SY.again=true;return}SY.running=true;clearTimeout(SY.timer);setSync('busy');
+  try{const r=await readRemote();applyRemote(r);const loc=localAll();
+    if(SLOTS.some(k=>(loc[k]?.t||0)!==(r[k]?.t||0)))await writeRemote();SY.last=Date.now();setSync('ok')}
+  catch(e){syncFail(e)}finally{SY.running=false;if(SY.again){SY.again=false;queueSync()}}}
+function queueSync(){if(!SY.token||!SY.gist)return;clearTimeout(SY.timer);setSync('busy');SY.timer=setTimeout(syncNow,1200)}
+function union(a,b){const o={};SLOTS.forEach(k=>{const x=a[k],y=b[k];if(!x&&!y)return;o[k]={v:1,t:Date.now(),done:[...new Set([...(x?.done||[]),...(y?.done||[])])],opts:{...(y?.opts||{}),...(x?.opts||{})}}});return o}
+async function doLogin(tok){SY.token=tok;SY.busyLogin=true;const say=m=>{const e=$('#lErr');if(e)e.textContent=m};say('Verifica in corso…');
+  try{const u=await gh('/user');SY.user=u.login;
+    let gist=null;for(let p=1;p<=10&&!gist;p++){const list=await gh('/gists?per_page=100&page='+p);gist=list.find(g=>g.files&&g.files[GFILE]);if(list.length<100)break}
+    if(gist){SY.gist=gist.id;const remote=await readRemote(),local=localAll();
+      if(filled(remote)&&filled(local)&&JSON.stringify(remote)!==JSON.stringify(local)){SY.busyLogin=false;askMerge(remote,local);return}
+      applyRemote(remote,filled(remote));await writeRemote()}
+    else{const g=await gh('/gists',{method:'POST',body:JSON.stringify({description:'Silksong Tracker: progressi (non modificare a mano)',public:false,files:{[GFILE]:{content:payload()}}})});SY.gist=g.id}
+    finishLogin()}
+  catch(e){SY.busyLogin=false;const st=e.status;SY.token=null;SY.user=null;
+    say(st===401?'Token non valido: controlla di averlo copiato tutto.':st===403||st===404?'Il token non ha il permesso Gist: ricrealo spuntando "gist".':framed?'Qui nell\'anteprima di Claude GitHub non è raggiungibile: accedi dal sito vitobattista.github.io.':'GitHub non risponde: controlla la connessione e riprova.')}}
+function finishLogin(){SY.busyLogin=false;store.set(SK+'token',SY.token);store.set(SK+'gist',SY.gist);store.set(SK+'user',SY.user);SY.last=Date.now();setSync('ok');renderLogin();toast('Accesso eseguito: i progressi ora si salvano su GitHub')}
+function askMerge(remote,local){const cnt=a=>Object.values(a).reduce((n,d)=>n+(d?.done?.length||0),0);
+  $('#lBody').innerHTML=`<p>Su GitHub ci sono già dei progressi (${cnt(remote)} voci) e anche questo dispositivo ne ha (${cnt(local)} voci). Cosa vuoi tenere?</p>
+  <div class="row"><button class="btn" id="mL">Quelli di questo dispositivo</button><button class="btn" id="mR">Quelli su GitHub</button><button class="btn pri" id="mU">Uniscili</button></div><p class="err" id="lErr"></p>`;
+  const go=async data=>{try{SLOTS.forEach(k=>{if(data[k])store.set(KEY(k),JSON.stringify({...data[k],t:Date.now()}))});load();render();await writeRemote();finishLogin()}catch(e){$('#lErr').textContent='Salvataggio non riuscito, riprova.'}};
+  $('#mL').onclick=()=>go(local);$('#mR').onclick=()=>go(remote);$('#mU').onclick=()=>go(union(local,remote))}
+function renderLogin(){const b=$('#lBody');
+  if(SY.token&&SY.gist){const when=SY.last?new Date(SY.last).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'}):'—';
+    b.innerHTML=`<dl class="acc"><dt>Account</dt><dd>${esc(SY.user||'')}</dd><dt>Stato</dt><dd>${esc(SY.msg||{ok:'Tutto salvato',busy:'Salvataggio in corso…'}[SY.state]||'')}</dd><dt>Ultima sincronizzazione</dt><dd>${when}</dd><dt>Dove</dt><dd><a href="https://gist.github.com/${esc(SY.user||'')}/${esc(SY.gist)}" target="_blank" rel="noopener">Gist privato ↗</a></dd></dl>
+    <p class="note">Tutti e 4 gli slot si salvano automaticamente qualche istante dopo ogni modifica, e si aggiornano quando riapri l'app. Su un altro dispositivo accedi con lo stesso token.</p>
+    <div class="row"><button class="btn" id="lOut">Esci</button><button class="btn" id="lNow">Sincronizza ora</button><button class="btn pri" id="lClose">Chiudi</button></div>`;
+    $('#lOut').onclick=()=>{['token','gist','user'].forEach(k=>store.set(SK+k,''));SY.token=SY.gist=SY.user=null;setSync('off');renderLogin();toast('Disconnesso: i progressi restano su questo dispositivo')};
+    $('#lNow').onclick=()=>syncNow();$('#lClose').onclick=()=>login.close();return}
+  b.innerHTML=`<p>Salva i progressi in un <b>Gist privato</b> del tuo account GitHub e ritrovali su ogni dispositivo. Serve un token, da creare una sola volta:</p>
+  <ol><li>Apri <a href="${TOKEN_URL}" target="_blank" rel="noopener"><b>Crea token su GitHub ↗</b></a> (nome e permesso <b>gist</b> sono già compilati).</li>
+  <li>In <b>Expiration</b> scegli <b>No expiration</b> (o una scadenza lunga).</li>
+  <li>In fondo premi <b>Generate token</b> e copia il codice che inizia con <b>ghp_</b>.</li>
+  <li>Incollalo qui sotto. Il token resta solo in questo browser e può toccare soltanto i tuoi Gist.</li></ol>
+  <form id="lForm"><input class="tok" id="lTok" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ghp_…" aria-label="Token GitHub">
+  <p class="err" id="lErr" role="alert"></p>
+  <div class="row"><button type="button" class="btn" id="lCancel">Annulla</button><button class="btn pri">Accedi</button></div></form>`;
+  $('#lForm').onsubmit=e=>{e.preventDefault();const t=$('#lTok').value.trim();if(t.length<20){$('#lErr').textContent='Incolla il token completo.';return}doLogin(t)};
+  $('#lCancel').onclick=()=>login.close()}
+const login=$('#login');
+$('#bSync').onclick=()=>{renderLogin();login.showModal()};
+login.querySelectorAll('[data-ui]').forEach(el=>{const i=IM.U[el.dataset.ui];if(i!=null)el.src=src(i)});
+addEventListener('online',()=>SY.token&&syncNow());
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&SY.token&&Date.now()-SY.last>20000)syncNow();
+  if(document.visibilityState==='hidden'&&SY.timer&&SY.token){clearTimeout(SY.timer);syncNow()}});
+
 /* --- avvio --- */
 slot=store.get('silksong-tracker:slot')||'1';load();
 const h=location.hash.slice(1);if(CATS.some(c=>c.id===h))cur=h;
 render();
+setSync(SY.token&&SY.gist?'ok':'off');if(SY.token&&SY.gist)syncNow();
 }
 </script>
 </body>
