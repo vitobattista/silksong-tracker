@@ -10,6 +10,13 @@ Checklist interattiva di **Hollow Knight: Silksong**: spunta abilità, Silk Skil
 - Icone, sprite e ornamenti caricati direttamente da hollowknight.wiki (nessuna immagine copiata nel repository). Se un'immagine non si carica compare un rombo al suo posto.
 - Nessun build, nessuna dipendenza: HTML + JS statico.
 
+## Mappe e guide
+
+- **Dove si trova**: nel riquadro dettagli ogni voce che ce l'ha mostra la mappina della wiki con il punto cerchiato (oltre 600 voci, `maps.js`).
+- **Mappa completa dell'area**: pulsante sotto la mappina, ricavato dall'area citata nella descrizione; in ogni categoria c'è anche **Mappa di Pharloom**.
+- Le mappe si aprono a schermo intero: tocca o clicca per ingrandire, poi trascina per spostarti.
+- **Guide passo passo** (`guides.js`) per tutti gli obiettivi della storia, i finali, i wish più articolati e alcune abilità: le voci con guida hanno il tag *Guida*.
+
 ## Salvataggio su GitHub (sincronizzazione)
 
 Il pulsante **Accedi** (su telefono dentro **Opzioni**) collega l'app a un **Gist privato** del tuo account GitHub, dove vengono salvati tutti e 4 gli slot.
@@ -22,7 +29,7 @@ Il token resta solo nel browser (localStorage) e può accedere soltanto ai tuoi 
 
 ## Pubblicare su GitHub Pages
 
-1. Crea un repository (es. `silksong-tracker`) e carica `index.html`, `data.js`, `images.js`, `README.md`, `.nojekyll`.
+1. Crea un repository (es. `silksong-tracker`) e carica `index.html`, `data.js`, `images.js`, `maps.js`, `guides.js`, `README.md`, `.nojekyll`.
 2. **Settings → Pages → Build and deployment → Source: Deploy from a branch**, branch `main`, cartella `/ (root)`.
 3. Dopo un minuto il sito è su `https://<utente>.github.io/silksong-tracker/`.
 
