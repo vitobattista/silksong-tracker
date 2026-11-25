@@ -532,7 +532,10 @@ Bellhome Key | Dopo il wish Bellhart's Glory (achievement Resident) | 2
 Materium | Montalo nella Bellhome | 2
 Crawbell | Dopo Crawfather | 3
 ## Chiavi
-Simple Key · Wormways/Deep Docks | Chiavi semplici per le porte comuni (più esemplari nel gioco) | 1
+Simple Key · Pebb | Pebb (Bone Bottom) a 500; nell'Atto 3 Grindle (Blasted Steps) a 600 | 1
+Simple Key · Sinner's Road | Lasciata da un Roachkeeper a nord-est della Sinner's Road | 1
+Simple Key · Jubilana | Jubilana (Songclave) a 650, dopo The Wandering Merchant | 2
+Simple Key · Sands of Karak | Su un cadavere accanto alla panchina all'estremo est delle Sands of Karak | 2
 Key of Indolent | The Slab | 2
 Key of Heretic | The Slab | 2
 Key of Apostate | The Slab | 2
