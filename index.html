@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Silksong Tracker</title>
-<meta name="description" content="Checklist completa di Hollow Knight: Silksong in stile inventario: abilità, boss, wishes, collezionabili e percentuale di completamento.">
+<title>Silksong Tracker · Hollow Knight Tracker</title>
+<meta name="description" content="Checklist completa di Hollow Knight: Silksong e Hollow Knight in stile inventario: abilità, boss, desideri, amuleti, collezionabili, mappe, guide e percentuale di completamento.">
 <meta name="theme-color" content="#0a090c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -306,6 +306,17 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
  .pgrid .tab[aria-current=true]::after{display:none}
 }
 @media(max-width:360px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.comp{width:96px}.comp b{font-size:24px}}
+/* --- selettore del gioco e tema Hollow Knight --- */
+.gsw{display:inline-flex;gap:2px;margin:0 auto 10px;padding:3px;border:1px solid var(--line2);border-radius:999px;background:rgb(10 9 12/.6);backdrop-filter:blur(4px)}
+.gsw button{font-family:Cinzel,serif;font-size:13px;letter-spacing:.08em;padding:7px 14px;border-radius:999px;color:var(--mute);white-space:nowrap}
+.gsw button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.gsw button:not([aria-pressed=true]):hover{color:var(--ink)}
+.det .en{font-style:italic;color:var(--dim);font-size:15px;margin-top:2px}
+body[data-game=hollowknight]{--red:#7fa7d1;--ember:#bcd6ee;--gold:#c4d3e2;--mute:#9ba3ad;--dim:#69707a;--line:#343a44;--line2:#535c68}
+body[data-game=hollowknight] .hero::before{background:radial-gradient(60% 80% at 70% 90%,#1d2c40 0%,#0d131c 40%,var(--bg) 75%)}
+body[data-game=hollowknight] .hero .bg{object-position:60% 40%}
+body[data-game=hollowknight] .tag.p{border-color:#4d5f74}
+@media(max-width:700px){.gsw{margin:0 0 8px}.gsw button{font-size:11px;padding:6px 10px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.embers{display:none}}
 </style>
 </head>
@@ -315,9 +326,10 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
   <img class="bg" id="heroBg" alt="">
   <div class="embers" id="embers" aria-hidden="true"></div>
   <div class="title">
+    <div class="gsw" id="gsw" role="group" aria-label="Gioco"><button data-game="silksong" aria-pressed="true">Silksong</button><button data-game="hollowknight" aria-pressed="false">Hollow Knight</button></div>
     <img class="orn" data-ui="top" alt="">
-    <h1>Silksong Tracker</h1>
-    <p>Il diario di viaggio di Hornet attraverso Pharloom</p>
+    <h1 id="gTitle">Silksong Tracker</h1>
+    <p id="gSub">Il diario di viaggio di Hornet attraverso Lungitela</p>
     <img class="orn b" data-ui="bottom" alt="">
   </div>
   <div class="comp">
@@ -336,14 +348,14 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
 </div>
 <div class="ctlw">
   <div class="ctl">
-    <input class="search" id="q" type="search" placeholder="Cerca in tutto Pharloom…" aria-label="Cerca">
+    <input class="search" id="q" type="search" placeholder="Cerca…" aria-label="Cerca">
     <button class="btn mopt" id="bMore" aria-expanded="false" aria-controls="more">Opzioni<i id="nf"></i></button>
     <div class="more" id="more">
     <div class="seg" id="acts" role="group" aria-label="Filtra per atto">
-      <button data-a="" aria-pressed="true">Tutti</button><button data-a="1" aria-pressed="false">I</button><button data-a="2" aria-pressed="false">II</button><button data-a="3" aria-pressed="false">III</button>
+      
     </div>
     <label class="tog"><input type="checkbox" id="hide"> Nascondi ottenuti</label>
-    <label class="tog"><input type="checkbox" id="steel"> Steel Soul</label>
+    <label class="tog" id="steelL"><input type="checkbox" id="steel"> Anima d'acciaio</label>
     <div class="menu">
       <button class="btn sync" id="bSync" aria-haspopup="dialog"><span class="sdot"></span><span id="sLbl">Accedi</span></button>
       <select id="slot" class="btn" aria-label="Slot di salvataggio"><option value="1">Slot I</option><option value="2">Slot II</option><option value="3">Slot III</option><option value="4">Slot IV</option></select>
@@ -370,7 +382,7 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
 
 <footer class="foot">
   <hr class="rule">
-  <p>Dati e immagini da <a href="https://hollowknight.wiki/w/Hollow_Knight:_Silksong">hollowknight.wiki</a> (novembre 2026). Immagini e marchi © Team Cherry, caricate direttamente dalla wiki. Progetto non ufficiale, non affiliato a Team Cherry.<br>I progressi restano nel tuo browser: usa Esporta per spostarli su un altro dispositivo.</p>
+  <p>Dati, nomi italiani e immagini da <a href="https://hollowknight.wiki/">hollowknight.wiki</a> (novembre 2026). Immagini e marchi © Team Cherry, caricate direttamente dalla wiki. Progetto non ufficiale, non affiliato a Team Cherry.<br>I nomi senza traduzione ufficiale (alcune sotto-aree, obiettivi e achievement) sono tradotti dalla redazione; il nome inglese resta visibile nel riquadro dettagli.<br>I progressi restano nel tuo browser: accedi con GitHub per sincronizzarli, oppure usa Esporta.</p>
 </footer>
 
 <dialog id="dlg">
@@ -396,56 +408,90 @@ dialog .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:
 <script src="images.js"></script>
 <script src="maps.js"></script>
 <script src="guides.js"></script>
+<script src="hk-data.js"></script>
+<script src="hk-images.js"></script>
+<script src="hk-maps.js"></script>
+<script src="hk-guides.js"></script>
+<script src="it.js"></script>
 <script>
 {
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const slug=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 
+/* --- giochi --- */
+const GAMES={
+  silksong:{title:'Silksong Tracker',sub:'Il diario di viaggio di Hornet attraverso Lungitela',world:'Mappa di Lungitela',search:'Cerca in tutta Lungitela…',
+    data:window.SILKSONG,img:window.SS_IMG,map:window.SS_MAP,guide:window.SS_GUIDE,it:window.SS_IT,key:'silksong-tracker:',steel:true,max:100,
+    acts:[['','Tutti'],['1','I'],['2','II'],['3','III']],actTag:a=>'Atto '+(['','I','II','III'][a]||a),
+    spec:[['masks',4,5],['spools',2,9]],list:['story','wishes','masks','spools','lockets','craftmetal','fleas','travel','maps'],
+    WIKI:{masks:'Mask Shard (Silksong)',spools:'Spool Fragment',lockets:'Memory Locket',craftmetal:'Craftmetal',fleas:'Flea',wishes:'Wishes',story:'Objectives',maps:'Map and Quill (Silksong)',achievements:'Achievements (Silksong)'},
+    wikiOf:(c,base)=>c==='travel'?(base==='Silkeater'?'Silkeater':'Fast Travel (Silksong)'):base.replace(/ \(.*\)$/,'').replace(/^Ending: .*/,'Endings (Silksong)')},
+  hollowknight:{title:'Hollow Knight Tracker',sub:'Il diario di viaggio del Cavaliere attraverso Nidosacro',world:'Mappa di Nidosacro',search:'Cerca in tutto Nidosacro…',
+    data:window.HOLLOWKNIGHT,img:window.HK_IMG,map:window.HK_MAP,guide:window.HK_GUIDE,it:window.HK_IT,key:'hk-tracker:',steel:false,max:112,
+    acts:[['','Tutti'],['B','Base'],['G','Grimm'],['D','Godmaster'],['L','Lifeblood']],actTag:a=>({G:'Grimm Troupe',D:'Godmaster',L:'Lifeblood'})[a]||'',
+    spec:[['masks',4,4],['vessels',3,3]],list:['story','masks','vessels','grubs','travel','maps','relics','trials'],
+    WIKI:{masks:'Mask Shard (Hollow Knight)',vessels:'Vessel Fragment',grubs:'Grub',maps:'Map and Quill',achievements:'Achievements (Hollow Knight)'},
+    wikiOf:(c,base)=>base.startsWith('Stag Station')?'Stag Station':base.replace(/^Ending: .*/,'Endings (Hollow Knight)').replace(/^Seer: .*/,'Seer')}
+};
+const GKEYS=Object.keys(GAMES);
+let G='silksong',GM=GAMES[G];
+{const h=location.hash.slice(1);const st=store0('tracker:game');G=h.startsWith('hk/')?'hollowknight':h&&!h.includes('/')?'silksong':GAMES[st]?st:'silksong';GM=GAMES[G]}
+function store0(k){try{return localStorage.getItem(k)}catch(e){return null}}
+
+/* --- traduzione: glossario inglese -> italiano (nomi ufficiali) --- */
+function mkTr(dict){const keys=Object.keys(dict||{}).sort((a,b)=>b.length-a.length);if(!keys.length)return s=>s;
+  const re=new RegExp('(?<![A-Za-z\u00C0-\u017F])('+keys.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')(?![A-Za-z\u00C0-\u017F])','g');
+  const art={il:"l'",lo:"l'",del:"dell'",dello:"dell'",al:"all'",allo:"all'",dal:"dall'",dallo:"dall'",nel:"nell'",nello:"nell'",sul:"sull'",sullo:"sull'"};
+  return s=>!s?s:s.replace(re,m=>dict[m]).replace(/^(.+) Mappa$/,'Mappa: $1').replace(/(^|[^A-Za-z\u00C0-\u017F'])(il|lo|del|dello|al|allo|dal|dallo|nel|nello|sul|sullo|Il|Lo) (?=[AEIOU])/g,(m,p,a)=>p+(art[a.toLowerCase()]||a).replace(/^l/,a[0]==='I'||a[0]==='L'?'L':'l'))}
+let tr=s=>s;
+
 /* --- immagini (hotlink dalla wiki) --- */
-const IM=window.SS_IMG||{F:[],I:{},C:{},U:{}},IB='https://cdn.wikimg.net/en/hkwiki/images/';
+let IM={F:[],I:{},C:{},U:{}};const IB='https://cdn.wikimg.net/en/hkwiki/images/';
 function src(i,w=160){const p=IM.F[i];if(p==null)return'';const [path,t]=p.split('|');if(!t)return IB+path;return IB+'thumb/'+path+'/'+w+'px-'+path.split('/').pop()}
 const icon=(i,w)=>`<span class="ic${i==null?' noimg':''}">${i==null?'':`<img src="${src(i,w)}" alt="" loading="lazy" decoding="async">`}</span>`;
 document.addEventListener('error',e=>{const t=e.target;if(t.tagName!=='IMG')return;if(t.parentElement&&t.parentElement.classList.contains('ic'))t.parentElement.classList.add('noimg');else t.classList.add('noimg')},true);
-document.querySelectorAll('[data-ui]').forEach(el=>{const i=IM.U[el.dataset.ui];if(i!=null)el.src=src(i);else el.classList.add('noimg')});
-if(IM.U.menu!=null)$('#heroBg').src=src(IM.U.menu,1920);
 $('#embers').innerHTML=Array.from({length:22},(_,i)=>`<i style="left:${(i*37)%100}%;--dx:${((i*53)%80)-40}px;animation-duration:${7+(i*13)%9}s;animation-delay:${-(i*1.7)%9}s"></i>`).join('');
+const uiIdx=k=>IM.U[k]!=null?IM.U[k]:IM.U[{htop:'top',hbottom:'bottom'}[k]];
 
 /* --- dati --- */
-const WIKI={masks:'Mask Shard (Silksong)',spools:'Spool Fragment',lockets:'Memory Locket',craftmetal:'Craftmetal',fleas:'Flea',wishes:'Wishes',story:'Objectives',maps:'Map and Quill (Silksong)',achievements:'Achievements (Silksong)'};
-const CATS=(window.SILKSONG||[]).map(c=>{
-  const groups=[];let g={name:'',items:[]};const seen={};
-  c.text.split('\n').map(l=>l.trim()).filter(Boolean).forEach(l=>{
-    if(l.startsWith('## ')){if(g.items.length)groups.push(g);g={name:l.slice(3),items:[]};return}
-    const [name,note='',act='',flags='']=l.split('|').map(x=>x.trim());
-    let id=c.id+'-'+slug(name);if(seen[id])id+='-'+(++seen[id]);else seen[id]=1;
-    const it={id,name,note,act,cat:c.id,group:g.name,img:IM.I[id]};
-    flags.split(/\s+/).filter(Boolean).forEach(x=>{if(x==='pct')it.pct=id;else if(x.startsWith('pct:'))it.pct=x.slice(4);else if(x==='ss')it.ss=1;else if(x.startsWith('ex:'))it.ex=x.slice(3)});
-    const base=name.split(' · ')[0].replace(/ ×\d+/,'').replace(/ \d+$/,'');
-    it.wiki=WIKI[c.id]||(c.id==='travel'?(base==='Silkeater'?'Silkeater':'Fast Travel (Silksong)'):base.replace(/ \(.*\)$/,'').replace(/^Ending: .*/,'Endings (Silksong)'));
-    g.items.push(it);
+let CATS=[],ALL=[],BYID={},LISTDEF=new Set();
+function buildCats(){
+  CATS=(GM.data||[]).map(c=>{
+    const groups=[];let g={name:'',en:'',items:[]};const seen={};
+    c.text.split('\n').map(l=>l.trim()).filter(Boolean).forEach(l=>{
+      if(l.startsWith('## ')){if(g.items.length)groups.push(g);g={name:tr(l.slice(3)),en:l.slice(3),items:[]};return}
+      const [name,note='',act='',flags='']=l.split('|').map(x=>x.trim());
+      let id=c.id+'-'+slug(name);if(seen[id])id+='-'+(++seen[id]);else seen[id]=1;
+      const it={id,name:tr(name),en:name,note:tr(note),noteEn:note,act,cat:c.id,group:g.name,groupEn:g.en,img:IM.I[id]};
+      flags.split(/\s+/).filter(Boolean).forEach(x=>{if(x==='pct')it.pct=id;else if(x==='pct2'){it.pct=id;it.w=2}else if(x.startsWith('pct:'))it.pct=x.slice(4);else if(x==='ss')it.ss=1;else if(x.startsWith('ex:'))it.ex=x.slice(3)});
+      const base=name.split(' · ')[0].replace(/ ×\d+/,'').replace(/ \d+$/,'');
+      it.wiki=GM.WIKI[c.id]||GM.wikiOf(c.id,base);
+      g.items.push(it);
+    });
+    if(g.items.length)groups.push(g);
+    return {...c,name:tr(c.name),desc:tr(c.desc),groups,items:groups.flatMap(x=>x.items),img:IM.C[c.id]};
   });
-  if(g.items.length)groups.push(g);
-  return {...c,groups,items:groups.flatMap(x=>x.items),img:IM.C[c.id]};
-});
-const ALL=CATS.flatMap(c=>c.items),BYID=Object.fromEntries(ALL.map(i=>[i.id,i]));
-const LISTDEF=new Set(['story','wishes','masks','spools','lockets','craftmetal','fleas','travel','maps']);
+  ALL=CATS.flatMap(c=>c.items);BYID=Object.fromEntries(ALL.map(i=>[i.id,i]));LISTDEF=new Set(GM.list);
+}
 
 /* --- stato --- */
-let slot='1',done=new Set(),opts={},cur=CATS[0].id,query='',undo=null,sel=null;
+let slot='1',done=new Set(),opts={},cur=null,query='',undo=null,sel=null;
 const DEF=()=>({act:'',hide:false,steel:false,view:{}});
-const KEY=s=>'silksong-tracker:v1:slot'+s;
+const KEYG=(g,s)=>GAMES[g].key+'v1:slot'+s;
+const KEY=s=>KEYG(G,s);
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-function load(){let d={};try{d=JSON.parse(store.get(KEY(slot))||'{}')}catch(e){}done=new Set(d.done||[]);opts={...DEF(),...(d.opts||{})};opts.view=opts.view||{}}
-function save(){store.set(KEY(slot),JSON.stringify({v:1,t:Date.now(),done:[...done],opts}));store.set('silksong-tracker:slot',slot);if(typeof queueSync==='function')queueSync()}
+function load(){let d={};try{d=JSON.parse(store.get(KEY(slot))||'{}')}catch(e){}done=new Set(d.done||[]);opts={...DEF(),...(d.opts||{})};opts.view=opts.view||{};if(!GM.acts.some(a=>a[0]===opts.act))opts.act=''}
+function save(){store.set(KEY(slot),JSON.stringify({v:1,t:Date.now(),done:[...done],opts}));store.set(GM.key+'slot',slot);if(typeof queueSync==='function')queueSync()}
 const viewOf=c=>opts.view[c]||(LISTDEF.has(c)?'list':'grid');
 
 /* --- conteggi --- */
 const visible=it=>opts.steel||!it.ss;
 function units(items){const u=new Map();items.filter(visible).forEach(it=>{const k=it.ex?'ex:'+it.ex:it.id;u.set(k,(u.get(k)||false)||done.has(it.id))});return{tot:u.size,ok:[...u.values()].filter(Boolean).length}}
-function completion(){const g=new Map();ALL.forEach(it=>{if(it.pct&&visible(it))g.set(it.pct,(g.get(it.pct)||false)||done.has(it.id))});
-  const cnt=c=>CATS.find(x=>x.id===c).items.filter(i=>done.has(i.id)).length;
-  return Math.min(100,[...g.values()].filter(Boolean).length+Math.min(5,Math.floor(cnt('masks')/4))+Math.min(9,Math.floor(cnt('spools')/2)))}
+function completion(){const g=new Map(),w=new Map();ALL.forEach(it=>{if(it.pct&&visible(it)){g.set(it.pct,(g.get(it.pct)||false)||done.has(it.id));w.set(it.pct,it.w||1)}});
+  const cnt=c=>(CATS.find(x=>x.id===c)?.items||[]).filter(i=>done.has(i.id)).length;
+  let p=[...g.entries()].reduce((n,[k,v])=>n+(v?w.get(k):0),0);GM.spec.forEach(([c,per,mx])=>p+=Math.min(mx,Math.floor(cnt(c)/per)));
+  return Math.min(GM.max,p)}
 
 /* --- anello di seta --- */
 $('#ring').innerHTML=Array.from({length:100},(_,i)=>{const a=(i/100)*Math.PI*2-Math.PI/2,r1=74,r2=i%10===0?98:92,c=Math.cos(a),s=Math.sin(a);
@@ -455,39 +501,38 @@ const threads=[...document.querySelectorAll('.thr')];
 
 /* --- render --- */
 function renderTop(){
-  const p=completion();$('#pct').textContent=p+'%';threads.forEach((t,i)=>t.classList.toggle('on',i<p));
+  const p=completion(),pr=Math.round(p/GM.max*100);$('#pct').textContent=p+'%';threads.forEach((t,i)=>t.classList.toggle('on',i<pr));
   const u=units(ALL);$('#stats').textContent=`${u.ok} di ${u.tot} voci segnate`;
   $('#tabs').innerHTML=CATS.map(c=>{const x=units(c.items);return `<button class="tab${x.ok===x.tot?' full':''}" data-c="${c.id}" aria-current="${c.id===cur&&!query}">${icon(c.img,96)}<span>${esc(c.name)}</span><small>${x.ok}/${x.tot}</small></button>`}).join('');
   renderNav();
 }
-const tags=it=>[it.act?`<span class="tag">Atto ${['','I','II','III'][it.act]}</span>`:'',it.pct?'<span class="tag p">1%</span>':'',it.ss?'<span class="tag s">Steel Soul</span>':'',it.ex?'<span class="tag s">Alternativo</span>':'',GD[it.id]?'<span class="tag g">Guida</span>':''].join('');
+const tags=it=>{const a=it.act&&GM.actTag(it.act);return[a?`<span class="tag">${a}</span>`:'',it.pct?`<span class="tag p">${it.w||1}%</span>`:'',it.ss?'<span class="tag s">Anima d\'acciaio</span>':'',it.ex?'<span class="tag s">Alternativo</span>':'',GD[it.id]?'<span class="tag g">Guida</span>':''].join('')};
 function tileHTML(it){const ok=done.has(it.id);
-  return `<div class="tile${ok?' ok':''}" data-id="${it.id}" aria-selected="${sel===it.id}"><button class="sel" data-sel="${it.id}" title="${esc(it.name)}">${icon(it.img)}<span class="nm">${esc(it.name)}</span></button>${it.pct?'<span class="pc">1%</span>':''}<button class="ck" data-t="${it.id}" role="checkbox" aria-checked="${ok}" aria-label="Ottenuto: ${esc(it.name)}"></button></div>`}
+  return `<div class="tile${ok?' ok':''}" data-id="${it.id}" aria-selected="${sel===it.id}"><button class="sel" data-sel="${it.id}" title="${esc(it.name)}">${icon(it.img)}<span class="nm">${esc(it.name)}</span></button>${it.pct?`<span class="pc">${it.w||1}%</span>`:''}<button class="ck" data-t="${it.id}" role="checkbox" aria-checked="${ok}" aria-label="Ottenuto: ${esc(it.name)}"></button></div>`}
 function rowHTML(it){const ok=done.has(it.id);
   return `<div class="row${ok?' ok':''}" data-id="${it.id}" aria-selected="${sel===it.id}"><button class="ck" data-t="${it.id}" role="checkbox" aria-checked="${ok}" aria-label="Ottenuto: ${esc(it.name)}"></button>${icon(it.img,96)}<button class="tx" data-sel="${it.id}"><span class="nm">${esc(it.name)}</span><span class="tags">${tags(it)}</span>${it.note?`<span class="d">${esc(it.note)}</span>`:''}</button></div>`}
 const filt=items=>items.filter(it=>visible(it)&&(!opts.act||it.act===opts.act)&&(!opts.hide||!done.has(it.id)));
 const orn=(k,w)=>IM.U[k]!=null?`<img class="orn" src="${src(IM.U[k])}" alt="" style="width:${w}">`:'<hr class="rule" style="width:200px;margin:10px auto">';
 function renderPane(){
   const el=$('#pane');
-  if(query){const q=query.toLowerCase();const hits=filt(ALL).filter(it=>(it.name+' '+it.note+' '+it.group).toLowerCase().includes(q));
+  if(query){const q=query.toLowerCase();const hits=filt(ALL).filter(it=>(it.name+' '+it.note+' '+it.group+' '+it.en+' '+it.noteEn).toLowerCase().includes(q));
     el.innerHTML=`<div class="phead">${orn('top','min(300px,70%)')}<h2>Ricerca</h2><p>${hits.length} voci per “${esc(query)}”</p></div>`+
-    (hits.length?CATS.map(c=>{const h=hits.filter(x=>x.cat===c.id);return h.length?`<section class="grp"><h3>${esc(c.name)}<small>${h.length}</small></h3><div class="list">${h.map(rowHTML).join('')}</div></section>`:''}).join(''):'<p class="empty">Nessuna traccia. Prova con il nome inglese dell\'oggetto o dell\'area.</p>');return}
+    (hits.length?CATS.map(c=>{const h=hits.filter(x=>x.cat===c.id);return h.length?`<section class="grp"><h3>${esc(c.name)}<small>${h.length}</small></h3><div class="list">${h.map(rowHTML).join('')}</div></section>`:''}).join(''):'<p class="empty">Nessuna traccia. Prova con il nome italiano o inglese dell\'oggetto o dell\'area.</p>');return}
   const c=CATS.find(x=>x.id===cur),u=units(c.items),v=viewOf(c.id);
   el.innerHTML=`<div class="phead">${orn('top','min(300px,70%)')}<h2>${esc(c.name)}</h2><p>${esc(c.desc)}</p><div class="cnt">${u.ok} / ${u.tot}</div><div class="meter"><i style="width:${u.tot?u.ok/u.tot*100:0}%"></i></div>
-    <div class="vt"><button class="btn${v==='grid'?' pri':''}" data-v="grid" aria-pressed="${v==='grid'}">Griglia</button><button class="btn${v==='list'?' pri':''}" data-v="list" aria-pressed="${v==='list'}">Lista</button><button class="btn" data-world="1">Mappa di Pharloom</button></div></div>`+
+    <div class="vt"><button class="btn${v==='grid'?' pri':''}" data-v="grid" aria-pressed="${v==='grid'}">Griglia</button><button class="btn${v==='list'?' pri':''}" data-v="list" aria-pressed="${v==='list'}">Lista</button>${MP.W!=null?`<button class="btn" data-world="1">${GM.world}</button>`:''}</div></div>`+
     (c.groups.map((g,gi)=>{const items=filt(g.items);if(!items.length)return'';const gu=units(g.items);
       return `<section class="grp"><h3>${esc(g.name||c.name)} <small>${gu.ok}/${gu.tot}</small><button class="lk" data-g="${gi}">${gu.ok===gu.tot?'togli tutti':'segna tutti'}</button></h3><div class="${v}">${items.map(v==='grid'?tileHTML:rowHTML).join('')}</div></section>`}).join('')||'<p class="empty">Niente da mostrare con questi filtri.</p>');
 }
 /* --- mappe e guide --- */
-const MP=window.SS_MAP||{F:[],M:{},A:{}},GD=window.SS_GUIDE||{},MB='https://cdn.wikimg.net/en/hkwiki/images/';
+let MP={F:[],M:{},A:{}},GD={},AKEYS=[];const MB='https://cdn.wikimg.net/en/hkwiki/images/';
 const murl=i=>MB+MP.F[i];
-const AKEYS=Object.keys(MP.A).sort((a,b)=>b.length-a.length);
-function areaOf(it){const t=it.name+' · '+it.note+' · '+it.group;for(const k of AKEYS){const re=new RegExp('(^|[^A-Za-z])'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'($|[^A-Za-z])');if(re.test(t))return k}return null}
+function areaOf(it){const t=it.en+' · '+it.noteEn+' · '+it.groupEn;for(const k of AKEYS){const re=new RegExp('(^|[^A-Za-z])'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'($|[^A-Za-z])');if(re.test(t))return k}return null}
 function extraHTML(it){let h='';const g=GD[it.id];
-  if(g){h+=`<h4>Guida</h4>${g.pre?`<p class="pre">${esc(g.pre)}</p>`:''}<ol class="steps">${g.steps.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>${g.tip?`<p class="tipg">${esc(g.tip)}</p>`:''}`}
+  if(g){h+=`<h4>Guida</h4>${g.pre?`<p class="pre">${esc(tr(g.pre))}</p>`:''}<ol class="steps">${g.steps.map(x=>`<li>${esc(tr(x))}</li>`).join('')}</ol>${g.tip?`<p class="tipg">${esc(tr(g.tip))}</p>`:''}`}
   const mi=MP.M[it.id],ar=areaOf(it),ai=ar?MP.A[ar]:null;
   if(mi!=null)h+=`<h4>${it.cat==='maps'?'Mappa dell\'area':'Dove si trova'}</h4><button class="mapbtn" data-map="${mi}" data-mt="${esc(it.name)}"><img src="${murl(mi)}" alt="Mappa: ${esc(it.name)}" loading="lazy"><span>Ingrandisci</span></button>`;
-  if(ai!=null&&ai!==mi)h+=`<button class="btn amap" data-map="${ai}" data-mt="${esc(ar)}">Mappa completa: ${esc(ar)}</button>`;
+  if(ai!=null&&ai!==mi)h+=`<button class="btn amap" data-map="${ai}" data-mt="${esc(tr(ar))}">Mappa completa: ${esc(tr(ar))}</button>`;
   return h}
 const lb=$('#lb');let lbPrev=null;
 function openMap(i,title){lbPrev=document.activeElement;$('#lbT').textContent=title;$('#lbL').hidden=false;const im=$('#lbI');im.removeAttribute('src');im.onload=()=>{$('#lbL').hidden=true};im.onerror=()=>{$('#lbL').textContent='Mappa non disponibile (serve la connessione alla wiki).'};
@@ -506,13 +551,14 @@ function renderDet(){
   const d=$('#det'),it=sel&&BYID[sel];
   if(!it){const c=CATS.find(x=>x.id===cur);d.innerHTML=`<div class="big">${icon(c.img,160)}</div><h3>${esc(c.name)}</h3>${orn('hbottom','200px')}<p class="empty">Seleziona una voce per leggerne i dettagli. Il rombo in alto a destra la segna come ottenuta.</p>`;if($('#det').classList.contains('open'))sheet(null);return}
   const ok=done.has(it.id),cat=CATS.find(x=>x.id===it.cat);
-  d.innerHTML=`<button class="x" id="dx" aria-label="Chiudi">×</button><div class="big${ok?' ok':''}">${icon(it.img,160)}</div><h3>${esc(it.name)}</h3><div class="grpn">${esc(cat.name)}${it.group?' · '+esc(it.group):''}</div>${orn('hbottom','200px')}
+  d.innerHTML=`<button class="x" id="dx" aria-label="Chiudi">×</button><div class="big${ok?' ok':''}">${icon(it.img,160)}</div><h3>${esc(it.name)}</h3>${it.en!==it.name?`<div class="en">${esc(it.en)}</div>`:''}<div class="grpn">${esc(cat.name)}${it.group?' · '+esc(it.group):''}</div>${orn('hbottom','200px')}
     ${it.note?`<p class="note">${esc(it.note)}</p>`:''}<div class="tags">${tags(it)}</div>
     <div class="act"><button class="btn${ok?'':' pri'}" data-t="${it.id}">${ok?'Segna come mancante':'Segna come ottenuto'}</button></div>${extraHTML(it)}
     <a class="wiki" href="https://hollowknight.wiki/w/${encodeURIComponent(it.wiki.replace(/ /g,'_'))}" target="_blank" rel="noopener">Apri nella wiki ↗</a>`;
 }
 function render(){renderTop();renderPane();renderDet();
-  document.querySelectorAll('#acts button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a===opts.act));
+  $('#acts').innerHTML=GM.acts.map(([k,l])=>`<button data-a="${k}" aria-pressed="${k===opts.act}">${l}</button>`).join('');$('#acts').setAttribute('aria-label',G==='silksong'?'Filtra per atto':'Filtra per contenuto');
+  $('#steelL').hidden=!GM.steel;document.querySelectorAll('#gsw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.game===G));
   $('#hide').checked=opts.hide;$('#steel').checked=opts.steel;$('#slot').value=slot;
   const t=document.querySelector('#tabs .tab[aria-current=true]');if(t&&!MOB.matches)t.scrollIntoView({block:'nearest',inline:'center'});renderNav()}
 
@@ -540,13 +586,15 @@ function toggle(id){done.has(id)?done.delete(id):done.add(id);save();if(MOB.matc
   renderTop();if(sel===id)renderDet();
   const c=CATS.find(x=>x.id===cur),u=units(c.items);const m=document.querySelector('.phead .meter i');if(m&&!query){m.style.width=(u.tot?u.ok/u.tot*100:0)+'%';document.querySelector('.phead .cnt').textContent=`${u.ok} / ${u.tot}`}
   if(opts.hide)setTimeout(renderPane,400)}
-function go(id){cur=id;query='';sel=null;$('#q').value='';if(location.hash!=='#'+id)history.replaceState(null,'','#'+id);sheet(null);render();
+const HP=()=>G==='hollowknight'?'hk/':'';
+function go(id){cur=id;query='';sel=null;$('#q').value='';if(location.hash!=='#'+HP()+id)history.replaceState(null,'','#'+HP()+id);sheet(null);render();
   if(MOB.matches){const y=$('.wrap').getBoundingClientRect().top+scrollY-60;if(scrollY>y)scrollTo({top:y})}}
 function step(d){const i=CATS.findIndex(c=>c.id===cur);go(CATS[(i+d+CATS.length)%CATS.length].id)}
 $('#prev').onclick=()=>step(-1);$('#next').onclick=()=>step(1);
 document.addEventListener('click',e=>{
   const mb=e.target.closest('[data-map]');if(mb){openMap(+mb.dataset.map,mb.dataset.mt);return}
-  if(e.target.closest('[data-world]')){if(MP.W!=null)openMap(MP.W,'Mappa di Pharloom');return}
+  if(e.target.closest('[data-world]')){if(MP.W!=null)openMap(MP.W,GM.world);return}
+  const gb=e.target.closest('#gsw [data-game]');if(gb){if(gb.dataset.game!==G)setGame(gb.dataset.game);return}
   const t=e.target.closest('[data-t]');if(t){toggle(t.dataset.t);return}
   const s=e.target.closest('[data-sel]');if(s){sel=s.dataset.sel;document.querySelectorAll('[aria-selected=true]').forEach(n=>n.setAttribute('aria-selected','false'));document.querySelectorAll(`[data-id="${sel}"]`).forEach(n=>n.setAttribute('aria-selected','true'));renderDet();if(SHEET.matches)sheet('det');return}
   if(e.target.closest('#dx')){sheet(null);return}
@@ -562,21 +610,21 @@ $('#q').addEventListener('input',e=>{query=e.target.value.trim();sel=null;render
 $('#acts').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;opts.act=b.dataset.a;save();render()});
 $('#hide').onchange=e=>{opts.hide=e.target.checked;save();render()};
 $('#steel').onchange=e=>{opts.steel=e.target.checked;save();render()};
-$('#slot').onchange=e=>{slot=e.target.value;load();store.set('silksong-tracker:slot',slot);sel=null;render();toast('Slot '+['','I','II','III','IV'][slot]+' caricato')};
-addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(CATS.some(c=>c.id===h)&&h!==cur)go(h)});
+$('#slot').onchange=e=>{slot=e.target.value;load();store.set(GM.key+'slot',slot);sel=null;render();toast('Slot '+['','I','II','III','IV'][slot]+' caricato')};
+addEventListener('hashchange',()=>{let h=location.hash.slice(1);const g=h.startsWith('hk/')?'hollowknight':'silksong';h=h.replace(/^hk\//,'');if(g!==G)setGame(g,h);else if(CATS.some(c=>c.id===h)&&h!==cur)go(h)});
 
 /* --- dialoghi --- */
 const dlg=$('#dlg');
 function openDlg(title,text,area,buttons){$('#dTitle').textContent=title;$('#dText').textContent=text;$('#dArea').hidden=area===null;$('#dArea').value=area||'';$('#dRow').innerHTML='';
   buttons.forEach(([label,fn,pri])=>{const b=document.createElement('button');b.className='btn'+(pri?' pri':'');b.textContent=label;b.onclick=fn;$('#dRow').append(b)});dlg.showModal()}
-const exportData=()=>JSON.stringify({app:'silksong-tracker',v:1,slot,date:new Date().toISOString().slice(0,10),done:[...done],opts});
+const exportData=()=>JSON.stringify({app:'silksong-tracker',v:1,game:G,slot,date:new Date().toISOString().slice(0,10),done:[...done],opts});
 const framed=(()=>{try{return window.top!==window}catch(e){return true}})();
 $('#bExport').onclick=()=>openDlg('Esporta i progressi','Copia questo testo e incollalo con Importa su un altro dispositivo o browser.',exportData(),[
-  ...(framed?[]:[['Scarica .json',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([exportData()],{type:'application/json'}));a.download=`silksong-slot${slot}.json`;a.click()}]]),
+  ...(framed?[]:[['Scarica .json',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([exportData()],{type:'application/json'}));a.download=`${G==='silksong'?'silksong':'hollow-knight'}-slot${slot}.json`;a.click()}]]),
   ['Copia',async()=>{try{await navigator.clipboard.writeText($('#dArea').value);toast('Copiato negli appunti')}catch(e){$('#dArea').select();toast('Seleziona il testo e copialo a mano')}},true],
   ['Chiudi',()=>dlg.close()]]);
-function doImport(txt){try{const d=JSON.parse(txt);if(!Array.isArray(d.done))throw 0;snapshot('Progressi importati');done=new Set(d.done.filter(x=>BYID[x]));if(d.opts)opts={...DEF(),...d.opts,view:{...(d.opts.view||{})}};save();render();dlg.close()}
-  catch(e){$('#dText').textContent='Il testo non è un salvataggio valido di Silksong Tracker.'}}
+function doImport(txt){try{const d=JSON.parse(txt);if(!Array.isArray(d.done))throw 0;if((d.game||'silksong')!==G){$('#dText').textContent='Questo salvataggio è di '+GAMES[d.game||'silksong'].title.replace(' Tracker','')+': passa a quel gioco prima di importarlo.';return}snapshot('Progressi importati');done=new Set(d.done.filter(x=>BYID[x]));if(d.opts)opts={...DEF(),...d.opts,view:{...(d.opts.view||{})}};save();render();dlg.close()}
+  catch(e){$('#dText').textContent='Il testo non è un salvataggio valido del tracker.'}}
 $('#bImport').onclick=()=>openDlg('Importa i progressi','Incolla un salvataggio esportato, oppure scegli un file .json. Sostituisce lo slot attuale.','',[
   ['Scegli file',()=>$('#dFile').click()],['Importa',()=>doImport($('#dArea').value),true],['Annulla',()=>dlg.close()]]);
 $('#dFile').onchange=async e=>{const f=e.target.files[0];if(f)doImport(await f.text());e.target.value=''};
@@ -590,15 +638,18 @@ const TOKEN_URL='https://github.com/settings/tokens/new?scopes=gist&description=
 async function gh(path,o={}){const r=await fetch(path.startsWith('http')?path:GH+path,{...o,cache:'no-store',headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+SY.token,'X-GitHub-Api-Version':'2022-11-28',...(o.body?{'Content-Type':'application/json'}:{})}});
   if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;throw e}return r.status===204?null:r.json()}
 const SLOTS=['1','2','3','4'];
-function localAll(){const o={};SLOTS.forEach(k=>{try{const d=JSON.parse(store.get(KEY(k))||'null');if(d)o[k]=d}catch(e){}});return o}
-const filled=all=>Object.values(all||{}).some(d=>d&&d.done&&d.done.length);
+/* JSON v3: {games:{silksong:{slots},hollowknight:{slots}}}; la v2 aveva solo "slots" (Silksong). */
+function localAll(){const o={};GKEYS.forEach(g=>{const x={};SLOTS.forEach(k=>{try{const d=JSON.parse(store.get(KEYG(g,k))||'null');if(d)x[k]=d}catch(e){}});o[g]=x});return o}
+const filled=all=>Object.values(all||{}).some(x=>Object.values(x||{}).some(d=>d&&d.done&&d.done.length));
+let remoteOld=false;
 async function readRemote(){const g=await gh('/gists/'+SY.gist);const f=g.files&&g.files[GFILE];if(!f)return{};
-  let t=f.content;if(f.truncated)t=await fetch(f.raw_url,{cache:'no-store'}).then(r=>r.text());try{return JSON.parse(t).slots||{}}catch(e){return{}}}
-const payload=()=>JSON.stringify({app:'silksong-tracker',v:2,updated:new Date().toISOString(),slots:localAll()});
-async function writeRemote(){await gh('/gists/'+SY.gist,{method:'PATCH',body:JSON.stringify({files:{[GFILE]:{content:payload()}}})})}
-function applyRemote(slots,force){let cur=false;Object.entries(slots||{}).forEach(([k,d])=>{if(!SLOTS.includes(k)||!d||!Array.isArray(d.done))return;
-  let l=null;try{l=JSON.parse(store.get(KEY(k))||'null')}catch(e){}
-  if(force||!l||(d.t||0)>(l.t||0)){store.set(KEY(k),JSON.stringify(d));if(k===slot)cur=true}});if(cur){load();render()}}
+  let t=f.content;if(f.truncated)t=await fetch(f.raw_url,{cache:'no-store'}).then(r=>r.text());
+  try{const j=JSON.parse(t);remoteOld=!j.games;const o=j.games||{silksong:j.slots||{}};GKEYS.forEach(k=>o[k]=o[k]||{});return o}catch(e){return{}}}
+const payload=()=>JSON.stringify({app:'silksong-tracker',v:3,updated:new Date().toISOString(),games:localAll()});
+async function writeRemote(){await gh('/gists/'+SY.gist,{method:'PATCH',body:JSON.stringify({files:{[GFILE]:{content:payload()}}})});remoteOld=false}
+function applyRemote(games,force){let cur=false;Object.entries(games||{}).forEach(([g,slots])=>{if(!GAMES[g])return;Object.entries(slots||{}).forEach(([k,d])=>{if(!SLOTS.includes(k)||!d||!Array.isArray(d.done))return;
+  let l=null;try{l=JSON.parse(store.get(KEYG(g,k))||'null')}catch(e){}
+  if(force||!l||(d.t||0)>(l.t||0)){store.set(KEYG(g,k),JSON.stringify(d));if(g===G&&k===slot)cur=true}})});if(cur){load();render()}}
 function setSync(st,msg=''){SY.state=st;SY.msg=msg;const b=$('#bSync');b.dataset.s=st;
   $('#sLbl').textContent=!SY.token?'Accedi':st==='busy'?'Salvataggio…':st==='err'?'Errore di salvataggio':st==='offline'?'In attesa di rete':(SY.user||'GitHub');
   b.title=msg||({ok:'Progressi salvati su GitHub',busy:'Sincronizzazione in corso',off:'Accedi per salvare su GitHub'}[st]||'');
@@ -609,30 +660,30 @@ function syncFail(e){if(e.status===401)setSync('err','Il token non è più valid
   else setSync('offline',framed?'Nell\'anteprima di Claude la sincronizzazione non è disponibile: usa il sito GitHub Pages.':'Nessuna connessione: i progressi restano su questo dispositivo e verranno inviati appena possibile.')}
 async function syncNow(){if(!SY.token||!SY.gist)return;if(SY.running){SY.again=true;return}SY.running=true;clearTimeout(SY.timer);setSync('busy');
   try{const r=await readRemote();applyRemote(r);const loc=localAll();
-    if(SLOTS.some(k=>(loc[k]?.t||0)!==(r[k]?.t||0)))await writeRemote();SY.last=Date.now();setSync('ok')}
+    if(remoteOld||GKEYS.some(g=>SLOTS.some(k=>(loc[g]?.[k]?.t||0)!==(r[g]?.[k]?.t||0))))await writeRemote();SY.last=Date.now();setSync('ok')}
   catch(e){syncFail(e)}finally{SY.running=false;if(SY.again){SY.again=false;queueSync()}}}
 function queueSync(){if(!SY.token||!SY.gist)return;clearTimeout(SY.timer);setSync('busy');SY.timer=setTimeout(syncNow,1200)}
-function union(a,b){const o={};SLOTS.forEach(k=>{const x=a[k],y=b[k];if(!x&&!y)return;o[k]={v:1,t:Date.now(),done:[...new Set([...(x?.done||[]),...(y?.done||[])])],opts:{...(y?.opts||{}),...(x?.opts||{})}}});return o}
+function union(A,B){const O={};GKEYS.forEach(g=>{const a=A[g]||{},b=B[g]||{},o={};SLOTS.forEach(k=>{const x=a[k],y=b[k];if(!x&&!y)return;o[k]={v:1,t:Date.now(),done:[...new Set([...(x?.done||[]),...(y?.done||[])])],opts:{...(y?.opts||{}),...(x?.opts||{})}}});O[g]=o});return O}
 async function doLogin(tok){SY.token=tok;SY.busyLogin=true;const say=m=>{const e=$('#lErr');if(e)e.textContent=m};say('Verifica in corso…');
   try{const u=await gh('/user');SY.user=u.login;
     let gist=null;for(let p=1;p<=10&&!gist;p++){const list=await gh('/gists?per_page=100&page='+p);gist=list.find(g=>g.files&&g.files[GFILE]);if(list.length<100)break}
     if(gist){SY.gist=gist.id;const remote=await readRemote(),local=localAll();
       if(filled(remote)&&filled(local)&&JSON.stringify(remote)!==JSON.stringify(local)){SY.busyLogin=false;askMerge(remote,local);return}
       applyRemote(remote,filled(remote));await writeRemote()}
-    else{const g=await gh('/gists',{method:'POST',body:JSON.stringify({description:'Silksong Tracker: progressi (non modificare a mano)',public:false,files:{[GFILE]:{content:payload()}}})});SY.gist=g.id}
+    else{const g=await gh('/gists',{method:'POST',body:JSON.stringify({description:'Silksong e Hollow Knight Tracker: progressi (non modificare a mano)',public:false,files:{[GFILE]:{content:payload()}}})});SY.gist=g.id}
     finishLogin()}
   catch(e){SY.busyLogin=false;const st=e.status;SY.token=null;SY.user=null;
     say(st===401?'Token non valido: controlla di averlo copiato tutto.':st===403||st===404?'Il token non ha il permesso Gist: ricrealo spuntando "gist".':framed?'Qui nell\'anteprima di Claude GitHub non è raggiungibile: accedi dal sito vitobattista.github.io.':'GitHub non risponde: controlla la connessione e riprova.')}}
 function finishLogin(){SY.busyLogin=false;store.set(SK+'token',SY.token);store.set(SK+'gist',SY.gist);store.set(SK+'user',SY.user);SY.last=Date.now();setSync('ok');renderLogin();toast('Accesso eseguito: i progressi ora si salvano su GitHub')}
-function askMerge(remote,local){const cnt=a=>Object.values(a).reduce((n,d)=>n+(d?.done?.length||0),0);
+function askMerge(remote,local){const cnt=a=>Object.values(a).reduce((n,x)=>n+Object.values(x||{}).reduce((m,d)=>m+(d?.done?.length||0),0),0);
   $('#lBody').innerHTML=`<p>Su GitHub ci sono già dei progressi (${cnt(remote)} voci) e anche questo dispositivo ne ha (${cnt(local)} voci). Cosa vuoi tenere?</p>
   <div class="row"><button class="btn" id="mL">Quelli di questo dispositivo</button><button class="btn" id="mR">Quelli su GitHub</button><button class="btn pri" id="mU">Uniscili</button></div><p class="err" id="lErr"></p>`;
-  const go=async data=>{try{SLOTS.forEach(k=>{if(data[k])store.set(KEY(k),JSON.stringify({...data[k],t:Date.now()}))});load();render();await writeRemote();finishLogin()}catch(e){$('#lErr').textContent='Salvataggio non riuscito, riprova.'}};
+  const go=async data=>{try{GKEYS.forEach(g=>SLOTS.forEach(k=>{if(data[g]?.[k])store.set(KEYG(g,k),JSON.stringify({...data[g][k],t:Date.now()}))}));load();render();await writeRemote();finishLogin()}catch(e){$('#lErr').textContent='Salvataggio non riuscito, riprova.'}};
   $('#mL').onclick=()=>go(local);$('#mR').onclick=()=>go(remote);$('#mU').onclick=()=>go(union(local,remote))}
 function renderLogin(){const b=$('#lBody');
   if(SY.token&&SY.gist){const when=SY.last?new Date(SY.last).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'}):'—';
     b.innerHTML=`<dl class="acc"><dt>Account</dt><dd>${esc(SY.user||'')}</dd><dt>Stato</dt><dd>${esc(SY.msg||{ok:'Tutto salvato',busy:'Salvataggio in corso…'}[SY.state]||'')}</dd><dt>Ultima sincronizzazione</dt><dd>${when}</dd><dt>Dove</dt><dd><a href="https://gist.github.com/${esc(SY.user||'')}/${esc(SY.gist)}" target="_blank" rel="noopener">Gist privato ↗</a></dd></dl>
-    <p class="note">Tutti e 4 gli slot si salvano automaticamente qualche istante dopo ogni modifica, e si aggiornano quando riapri l'app. Su un altro dispositivo accedi con lo stesso token.</p>
+    <p class="note">Tutti gli slot di entrambi i giochi si salvano automaticamente qualche istante dopo ogni modifica, e si aggiornano quando riapri l'app. Su un altro dispositivo accedi con lo stesso token.</p>
     <div class="row"><button class="btn" id="lOut">Esci</button><button class="btn" id="lNow">Sincronizza ora</button><button class="btn pri" id="lClose">Chiudi</button></div>`;
     $('#lOut').onclick=()=>{['token','gist','user'].forEach(k=>store.set(SK+k,''));SY.token=SY.gist=SY.user=null;setSync('off');renderLogin();toast('Disconnesso: i progressi restano su questo dispositivo')};
     $('#lNow').onclick=()=>syncNow();$('#lClose').onclick=()=>login.close();return}
@@ -648,15 +699,21 @@ function renderLogin(){const b=$('#lBody');
   $('#lCancel').onclick=()=>login.close()}
 const login=$('#login');
 $('#bSync').onclick=()=>{renderLogin();login.showModal()};
-login.querySelectorAll('[data-ui]').forEach(el=>{const i=IM.U[el.dataset.ui];if(i!=null)el.src=src(i)});
 addEventListener('online',()=>SY.token&&syncNow());
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&SY.token&&Date.now()-SY.last>20000)syncNow();
   if(document.visibilityState==='hidden'&&SY.timer&&SY.token){clearTimeout(SY.timer);syncNow()}});
 
 /* --- avvio --- */
-slot=store.get('silksong-tracker:slot')||'1';load();
-const h=location.hash.slice(1);if(CATS.some(c=>c.id===h))cur=h;
-render();
+function setGame(g,cat){G=g;GM=GAMES[g];store.set('tracker:game',g);document.body.dataset.game=g;
+  tr=mkTr(GM.it);IM=GM.img||{F:[],I:{},C:{},U:{}};MP=GM.map||{F:[],M:{},A:{}};GD=GM.guide||{};AKEYS=Object.keys(MP.A).sort((a,b)=>b.length-a.length);
+  buildCats();slot=store.get(GM.key+'slot')||'1';load();query='';sel=null;$('#q').value='';
+  cur=CATS.some(c=>c.id===cat)?cat:CATS[0].id;
+  $('#gTitle').textContent=GM.title;$('#gSub').textContent=GM.sub;$('#q').placeholder=GM.search;document.title=GM.title;
+  const hb=$('#heroBg');hb.classList.remove('noimg');if(IM.U.menu!=null)hb.src=src(IM.U.menu,1920);else hb.removeAttribute('src');
+  document.querySelectorAll('[data-ui]').forEach(el=>{const i=uiIdx(el.dataset.ui);el.classList.toggle('noimg',i==null);if(i!=null)el.src=src(i)});
+  if(location.hash!=='#'+HP()+cur)history.replaceState(null,'','#'+HP()+cur);
+  sheet(null);render()}
+setGame(G,location.hash.slice(1).replace(/^hk\//,''));
 setSync(SY.token&&SY.gist?'ok':'off');if(SY.token&&SY.gist)syncNow();
 }
 </script>

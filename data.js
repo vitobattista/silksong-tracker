@@ -65,7 +65,7 @@ Architect's Melody | Cogwork Core | 2
 Vaultkeeper's Melody | Sacred Cylinder, Whispering Vaults (dopo Trobbio) | 2
 `},
 
-{ id:"skills", name:"Silk Skills", icon:"spool", desc:"Le 6 abilità di seta, 1% ciascuna.", text:`
+{ id:"skills", name:"Abilità di Seta", icon:"spool", desc:"Le 6 abilità di seta, 1% ciascuna.", text:`
 Silkspear | Bind a Mosshome (Moss Grotto) | 1 | pct
 Thread Storm | Bind a Craw Lake (Greymoor) | 1 | pct
 Cross Stitch | Sconfiggi Phantom nell'Exhaust Organ (Bilewater) | 1 | pct
@@ -74,7 +74,7 @@ Rune Rage | Sconfiggi First Sinner (The Slab) | 2 | pct
 Pale Nails | Bind del braccio di Grand Mother Silk, The Cradle | 3 | pct
 `},
 
-{ id:"crests", name:"Crest", icon:"crest", desc:"Sei Crest contano per il 100%.", text:`
+{ id:"crests", name:"Emblemi", icon:"crest", desc:"Sei Crest contano per il 100%.", text:`
 Hunter Crest | Equipaggiamento iniziale | 1
 Reaper Crest | Chapel of the Reaper, Greymoor | 1 | pct
 Wanderer Crest | Chapel of the Wanderer, Bone Bottom (gauntlet di pellegrini) | 1 | pct
@@ -178,7 +178,7 @@ Crafting Kit · Twelfth Architect | Twelfth Architect (Underworks) a 450 | 2 | p
 Crafting Kit · Grindle | Grindle (Blasted Steps) a 700 | 3 | pct
 `},
 
-{ id:"masks", name:"Mask Shard", icon:"mask", desc:"20 frammenti: ogni 4 = 1 maschera (1%).", text:`
+{ id:"masks", name:"Frammenti di maschera", icon:"mask", desc:"20 frammenti: ogni 4 = 1 maschera (1%).", text:`
 ## Atto 1
 Mask Shard 1 | Pebb (Bone Bottom) a 300; nell'Atto 3 Grindle (Blasted Steps) a 320 | 1
 Mask Shard 2 | Wormways inferiori da Mosshome, muro distruttibile davanti alla porta della Simple Key | 1
@@ -204,7 +204,7 @@ Mask Shard 19 | Wish Dark Hearts | 3
 Mask Shard 20 | Wish The Hidden Hunter | 3
 `},
 
-{ id:"spools", name:"Spool Fragment", icon:"spool", desc:"18 frammenti: ogni 2 = +1 rocchetto (1%).", text:`
+{ id:"spools", name:"Frammenti di spola", icon:"spool", desc:"18 frammenti: ogni 2 = +1 rocchetto (1%).", text:`
 ## Atto 1
 Spool Fragment 1 | Muro distruttibile in una zona muschiosa sopra Bone Bottom | 1
 Spool Fragment 2 | Deep Docks centrali: uscita sud-ovest dalla Forge Daughter, giù per la stanza verticale, primo passaggio a est | 1
@@ -227,7 +227,7 @@ Spool Fragment 17 | Memorium ovest, dal quarto piano (Faydown Cloak + Clawline) 
 Spool Fragment 18 | Grindle a 680 (Faydown Cloak + Cling Grip) | 3
 `},
 
-{ id:"lockets", name:"Memory Locket", icon:"locket", desc:"20 medaglioni per espandere i Crest.", text:`
+{ id:"lockets", name:"Medaglioni del ricordo", icon:"locket", desc:"20 medaglioni per espandere i Crest.", text:`
 Memory Locket 1 | Hunter's March, sotto la Chapel of the Beast | 1
 Memory Locket 2 | Mort a 150 (Atti 1–2) oppure Grindle a 250 (Atto 3) | 1
 Memory Locket 3 | Greymoor, a ovest della Bellway | 1
@@ -250,7 +250,7 @@ Memory Locket 19 | Bellhart, sopra la Bellhome (Silk Soar) | 3
 Memory Locket 20 | Far Fields, a est di Skarrsinger Karmelita (Silk Soar; Skarrgard black-threaded) | 3
 `},
 
-{ id:"craftmetal", name:"Craftmetal", icon:"ore", desc:"8 pezzi per costruire strumenti.", text:`
+{ id:"craftmetal", name:"Metallo artigiano", icon:"ore", desc:"8 pezzi per costruire strumenti.", text:`
 Craftmetal 1 | Pebb (Bone Bottom) a 60; nell'Atto 3 Grindle a 120 | 1
 Craftmetal 2 | The Marrow nord-est: fai esplodere il tunnel di roccia a ovest dell'ingresso di Hunter's March | 1
 Craftmetal 3 | Deep Docks, forziere dietro la porta chiusa (angolo sud-ovest della stanza più bassa) | 1
@@ -315,7 +315,7 @@ Plasmified Zango | Wormways | 3
 Lost Lace | The Abyss. Finale Sister of the Void | 3
 `},
 
-{ id:"wishes", name:"Wishes", icon:"scroll", desc:"Missioni secondarie da NPC e Wishwall.", text:`
+{ id:"wishes", name:"Desideri", icon:"scroll", desc:"Missioni secondarie da NPC e Wishwall.", text:`
 ## Wayfarer
 The Lost Fleas | Wishwall di Bone Bottom / Mooshka (The Marrow). Flea Brew | 1
 Pinmaster's Oil | Pinmaster Plinney (Bellhart): porta Pale Oil dalla Cittadella. Potenziamento ago | 1
@@ -543,7 +543,7 @@ Diving Bell Key | Apre la porta della Diving Bell (Deep Docks) | 3
 Craw Summons | Convocazione alla corte dei Craw | 3
 `},
 
-{ id:"journal", name:"Hunter's Journal", icon:"book", desc:"Voci del diario: il numero indica le uccisioni per completarle.", text:`
+{ id:"journal", name:"Diario della cacciatrice", icon:"book", desc:"Voci del diario: il numero indica le uccisioni per completarle.", text:`
 ## Mosslands e The Marrow
 Mossgrub | 25 uccisioni
 Massive Mossgrub | 3 uccisioni

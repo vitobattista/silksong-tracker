@@ -1,4 +1,21 @@
-# Silksong Tracker
+# Silksong Tracker · Hollow Knight Tracker
+
+Due checklist sullo stesso sito, con un selettore **Silksong | Hollow Knight** in alto. Ogni gioco ha schede, slot, filtri e percentuale propri; i progressi di entrambi finiscono nello stesso salvataggio su GitHub.
+
+## Hollow Knight
+
+Storia e finali, equipaggiamento, magie e arti dell'aculeo, 45 amuleti e tacche, aculei e Pale Ore, Mask Shard, Vessel Fragment, boss (base, Grimm, Godmaster), Colosseo e Pantheon, 46 larve, Stag Station, Whispering Root e Lifeblood Cocoon, mappe, reliquie e chiavi, Hunter's Journal e achievement.
+
+- Completamento fino al 112% con le regole del gioco: equipaggiamento 2%, 4 Mask Shard = 1%, 3 Vessel Fragment = 1%, amuleti fragile/indistruttibile, Grimmchild/Carefree Melody e Kingsoul/Void Heart contano una volta.
+- Filtro per contenuto: Base, Grimm Troupe, Godmaster, Lifeblood.
+- Mappine di posizione, mappe delle aree, mappa di Nidosacro e guide passo passo (Sognatori, finali, Kingsoul/Void Heart, Rituale di Grimm, Delicate Flower, Pantheon…).
+- Indirizzi: `#hk/charms`, `#hk/bosses`… (Silksong resta `#abilities`, `#bosses`…).
+
+## Nomi in italiano
+
+Tutti i nomi (oggetti, aree, personaggi, nemici, amuleti, desideri…) usano le traduzioni ufficiali delle edizioni italiane, raccolte dalle sezioni "Names in Other Languages" della wiki (`it.js`). Dove la wiki non ha un nome italiano (alcune sotto-aree, obiettivi di storia, achievement) la traduzione è redazionale. Il nome inglese resta visibile nel riquadro dettagli e la ricerca funziona in entrambe le lingue.
+
+## Silksong
 
 Checklist interattiva di **Hollow Knight: Silksong**: spunta abilità, Silk Skills, Crest, strumenti, potenziamenti, Mask Shard, Spool Fragment, Memory Locket, Craftmetal, boss, wishes, pulci, Bellway/Ventrica, mappe, reliquie, Hunter's Journal e achievement.
 
@@ -18,6 +35,9 @@ Checklist interattiva di **Hollow Knight: Silksong**: spunta abilità, Silk Skil
 - **Guide passo passo** (`guides.js`) per tutti gli obiettivi della storia, i finali, i wish più articolati e alcune abilità: le voci con guida hanno il tag *Guida*.
 
 ## Salvataggio su GitHub (sincronizzazione)
+
+Il Gist `silksong-tracker.json` contiene entrambi i giochi (formato v3: `{"games":{"silksong":{slot…},"hollowknight":{slot…}}}`). Un salvataggio nel vecchio formato v2 viene convertito automaticamente al primo accesso.
+
 
 Il pulsante **Accedi** (su telefono dentro **Opzioni**) collega l'app a un **Gist privato** del tuo account GitHub, dove vengono salvati tutti e 4 gli slot.
 
